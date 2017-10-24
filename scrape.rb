@@ -1,4 +1,5 @@
-require 'dotenv/load'
+require 'dotenv'
+Dotenv.load
 require 'json'
 require 'mechanize'
 require 'slack-notifier'
@@ -17,8 +18,6 @@ def crawl
   json.each do |hash|
   	results << BASE + hash["Url"] if hash["Bostadssnabben"] == false
 	end
-	
-	#puts results
 	
 	notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
 	message = "#{results}"
