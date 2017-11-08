@@ -16,7 +16,7 @@ def crawl
   results = []
 
   json.each do |hash|
-  	results << BASE + hash["Url"] if hash["Bostadssnabben"] == false
+  	results << BASE + hash["Url"] unless hash["Bostadssnabben"] == true
 	end
 	
 	notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
