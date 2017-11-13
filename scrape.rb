@@ -18,12 +18,15 @@ def crawl
   json.each do |hash|
     if hash["Bostadssnabben"] == true
       results = BASE + hash["Url"]
-      notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
-      message = "#{results}"
-      notifier.ping message
+      notify_slack(results)
     end
 	end
+end
 
+def notify_slack(results)
+  notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
+  message = "#{results}"
+  notifier.ping message
 end
 
 crawl
